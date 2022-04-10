@@ -9,6 +9,10 @@
 </head>
 <body>
     <h1>Masai Calculator</h1>
+    
+    <div class="containers">
+
+   
     <table>
         <tr>
             <td colspan="4">
@@ -31,15 +35,16 @@
             <td><input type="button" id="button" value="7" onclick="display('7')"/></td>
             <td><input type="button" id="button" value="8" onclick="display('8')"/></td>
             <td><input type="button" id="button" value="9" onclick="display('9')"/></td>
-            <td><input type="button" id="operation" value="*" onclick="display('*')"/> </td>
+            <td><input type="button" id="operation" value="x" onclick="display('*')"/> </td>
         </tr>
         <tr>
-            <td><input type="button" id="operation" value="C" onclick="clrScr()"/></td>
+            <td><input type="button" id="operationC" value="C" onclick="clrScr()"/></td>
             <td><input type="button" id="button" value="0" onclick="display('0')"/></td>
             <td><input type="button" id="operation" value="=" onclick="displayans()"/></td>
             <td><input type="button" id="operation" value="/" onclick="display('/')"/> </td>
         </tr>
     </table>
+</div>
     <script>
         if(document.querySelector("#result").value=="+"){
             alert=("enter ")
@@ -53,7 +58,7 @@
         function displayans(){
             var val=document.querySelector("#result").value;
             if(val[0] =='+' || val[0] =='-' || val[0] =='*' || val[0] =='/' || val[val.length-1]=='+' || val[val.length-1]=='-' || val[val.length-1]=='*' || val[val.length-1]=='/'){
-                alert("Enter the valid statement")
+                alert("Enter valid numbers!!!")
                 return;
             }
             var cal=eval(val);
