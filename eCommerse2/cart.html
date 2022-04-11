@@ -1,0 +1,92 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+    <link rel="stylesheet" href="mens.css">
+</head>
+<body>
+    <h1>Cart items</h1>
+    <div id="navi">
+        <div>
+            <div><button  id="homeButton">Go to Home</button></div>
+            <div>
+                <input type="text" placeholder="Enter Promo Code" id="pcode"/>
+                <button id="promo">Apply Promo</button>
+            </div>
+        </div>
+
+        <div> 
+            <div><p id="items"></p></div>
+            <div><p id="prices"></p></div>
+            <div><p id="discount"></p></div>
+            <div><p id="final"></p></div>
+        </div> 
+    </div>
+    
+    <div id="container"></div>
+</body>
+<script>
+    document.querySelector("#homeButton").addEventListener('click',homeFn);
+    function homeFn(){
+        window.location.href="mens.html"
+    }
+    
+    var cartData = JSON.parse(localStorage.getItem('cartData'));
+
+    var totalSum = cartData.reduce(function(sum, ele, index, arr) {
+        return sum + Number(ele.price);
+    }, 0);
+    var totalItems = cartData.length;
+    document.querySelector('#items').innerText ="Total number of items = " + totalItems;
+    document.querySelector('#prices').innerText ="Total price of all items = " +totalSum; 
+    document.querySelector('#discount').innerText ="Discount = 0"; 
+    document.querySelector('#final').innerText ="Final Price = " + totalSum; 
+
+    document.querySelector("#promo").addEventListener('click',promoFn);
+    function promoFn(){
+        var appliedCode=document.querySelector("#pcode").value;
+        if(appliedCode==='masai30'){
+            var dis=totalSum*0.3;
+            var fin=totalSum-dis;
+            document.querySelector('#discount').innerText ="Discount = " + dis; 
+            document.querySelector('#final').innerText ="Final Price = " + fin; 
+
+            totalSum=totalSum*70/100;
+            document.querySelector('#prices').innerText ="Total price of all items = " +totalSum; 
+            console.log(appliedCode)
+
+        }
+    }
+    cartData.forEach((cartItem, cartIndex) => {
+        var box = document.createElement('div');
+        box.setAttribute('class', 'box')
+
+        var img = document.createElement('img');
+        img.src = cartItem.image_url;
+
+
+        var name = document.createElement('p');
+        name.textContent = cartItem.name;
+
+        var price = document.createElement('p');
+        price.innerText = cartItem.price;
+
+        var cartButton = document.createElement('button');
+        cartButton.innerText = 'Remove from cart';
+
+        cartButton.addEventListener('click', function() {
+           cartData.splice(cartIndex, 1)
+           localStorage.setItem('cartData', JSON.stringify(cartData));
+           window.location.reload();
+        });
+
+        box.append(img, name, price, cartButton);
+        document.querySelector('#container').append(box)
+    });
+
+</script>
+</html>
