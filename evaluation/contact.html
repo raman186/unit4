@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact List</title>
+    <style>
+         #navigation{
+            display: flex;
+            justify-content: space-evenly;
+            box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;        }
+        a{
+            color:rgb(29, 150, 150);
+            font-size: larger;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        #navigation > div{
+            margin: 10px;
+            padding: 2px;
+        }
+        #details{
+            margin:auto;
+            margin-top: 30px;
+            display: flex;
+            width: 450px;
+        }
+        #details > div{
+            background-color: rgb(6, 55, 55);
+            color: white;
+            margin-left: 1px;
+            padding: 10px 30px 10px 5px;
+        }
+    
+    </style>
+</head>
+<body>
+    <div id="navigation">
+        <div><a href="index.html">Home</a></div>
+        <div><a href="contact.html">Contact List</a></div>
+        <div><a href="favourites.html">Favourites</a></div>
+    </div>
+    <div id="details">
+            <div>Contact Name</div>
+            <div>Mobile Number</div>
+            <div>Type</div>
+            <div>Favourites</div>
+    </div>
+    <div id="data">
+
+    </div>
+</body>
+<script>
+    var contactList=JSON.parse(localStorage.getItem('contactList'));
+    contactList.forEach(contactObj, contactIndex => {
+        var box=document.createElement('div');
+        var contactName=document.createElement('div');
+        contactName.textContent=contactObj.name;
+        var contactNum=document.createElement('div');
+        contactNum.textContent=contactObj.mobile;
+        var contactType=document.createElement('div');
+        contactType.textContent=contactObj.tag;
+        var favo=document.createElement('a');
+        favo.textContent='add to favourite';
+        box.append(contactName,contactNum,contactType,favo);
+        document.querySelector("#data").append(box)
+    });
+</script>
+</html>
